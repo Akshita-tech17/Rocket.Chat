@@ -130,4 +130,21 @@ describe('convertSubObjectsIntoPaths', () => {
 		expect(converted.a).to.be.a('Date');
 		expect(converted['b.c']).to.be.a('Date');
 	});
+
+	it('should preserve empty sub-objects', () => {
+		const input = {
+			a: {},
+			b: {
+				c: {},
+				d: 1,
+			},
+		};
+		const expected = {
+			'a': {},
+			'b.c': {},
+			'b.d': 1,
+		};
+
+		expect(convertSubObjectsIntoPaths(input)).to.deep.equal(expected);
+	});
 });
